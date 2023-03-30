@@ -11,3 +11,9 @@ export interface IAddTodoState {
 export interface IEditTodoState {
   _id: string | null;
 }
+
+export interface IAlert {
+  isOpen: boolean;
+  message: string | null;
+  severity: any;
+}

@@ -1,6 +1,5 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import { takeEvery, put, call, takeLatest } from "redux-saga/effects";
-import { apiCallRequest } from "state/utils/apiCaller";
 import {
   getTodosRequest,
   getTodosSuccess,
@@ -16,9 +15,15 @@ import {
   updateTodoFail,
 } from "state/ducks/todos/todoSlice";
 import { ITodo } from "state/ducks/todos/types/utils";
+import { apiCallRequest } from "state/utils/apiCaller";
+
 function* getTodoTasksSaga(action: AnyAction): Generator {
   try {
-    const data: ITodo[] = (yield call(apiCallRequest, "", "GET")) as ITodo[];
+    const data: ITodo[] = (yield call(
+      apiCallRequest,
+      "/todos/",
+      "GET"
+    )) as ITodo[];
     yield put(getTodosSuccess(data));
   } catch (error) {
     yield put(getTodosFail());
@@ -27,7 +32,7 @@ function* getTodoTasksSaga(action: AnyAction): Generator {
 
 function* AddTodoSaga(action: AnyAction): Generator {
   try {
-    const res: ITodo = (yield call(apiCallRequest, "", "POST", {
+    const res: ITodo = (yield call(apiCallRequest, "/todos/", "POST", {
       title: action.payload.title,
       completed: action.payload.completed,
     })) as ITodo;
@@ -39,7 +44,7 @@ function* AddTodoSaga(action: AnyAction): Generator {
 
 function* UpdateTodoSaga(action: AnyAction): Generator {
   try {
-    yield call(apiCallRequest, action.payload._id, "PUT", {
+    yield call(apiCallRequest, "/todos/" + action.payload._id, "PUT", {
       title: action.payload.title,
       completed: action.payload.completed,
     });
@@ -51,7 +56,7 @@ function* UpdateTodoSaga(action: AnyAction): Generator {
 
 function* RemoveTodoSaga(action: AnyAction): Generator {
   try {
-    yield call(apiCallRequest, action.payload._id, "DELETE");
+    yield call(apiCallRequest, "/todos/" + action.payload._id, "DELETE");
     yield put(removeTodoSuccess(action.payload));
   } catch (error) {
     yield put(removeTodoFail());

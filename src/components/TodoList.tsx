@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { IPropsFromTodoList } from "state/ducks/todos/types/redux";
 import {
   ITodo,
   IAddTodoState,
   IEditTodoState,
 } from "state/ducks/todos/types/utils";
-import { PropsFromTodoList } from "state/ducks/todos/types/redux";
-const TodoList: React.FC<PropsFromTodoList> = ({
+import { TodoTitleschema } from "state/utils/data";
+
+const TodoList: React.FC<IPropsFromTodoList> = ({
   todos,
   removeTodoRequest,
   updateTodoRequest,
@@ -16,16 +17,14 @@ const TodoList: React.FC<PropsFromTodoList> = ({
   const [editInput, setEditInput] = useState<IEditTodoState>({
     _id: null,
   });
-  const schema = yup.object({
-    title: yup.string().required("Title is required"),
-  });
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<IAddTodoState>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(TodoTitleschema),
   });
 
   const onSubmit = (data: IAddTodoState) => {
@@ -97,7 +96,9 @@ const TodoList: React.FC<PropsFromTodoList> = ({
               >
                 Edit
               </button>
-              <button onClick={() => removeTodoRequest(task)}>Delete</button>
+              <button onClick={() => removeTodoRequest(task._id)}>
+                Delete
+              </button>
             </div>
           </div>
         );

@@ -12,6 +12,7 @@ const mapStateToProps = (state: RootState): ITodosStateProps => {
   return {
     loading: state.todos.loading,
     error: state.todos.error,
+    alert: state.todos.alert,
   };
 };
 

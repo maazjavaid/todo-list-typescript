@@ -1,10 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ITodosState } from "state/ducks/todos/types/redux";
 import { ITodo } from "state/ducks/todos/types/utils";
+
 const initialState: ITodosState = {
   data: [],
   loading: false,
   error: null,
+  alert: {
+    isOpen: false,
+    message: null,
+    severity: "success",
+  },
 };
 
 const todoSlice = createSlice({
@@ -20,9 +26,14 @@ const todoSlice = createSlice({
     },
     getTodosSuccess: (state, action: PayloadAction<ITodo[]>) => {
       return {
+        ...state,
         data: action.payload,
         loading: false,
         error: null,
+        alert: {
+          ...state.alert,
+          isOpen: false,
+        },
       };
     },
     getTodosFail: (state) => {
@@ -30,6 +41,10 @@ const todoSlice = createSlice({
         ...state,
         loading: false,
         error: "Failed to fetch todos",
+        alert: {
+          ...state.alert,
+          isOpen: false,
+        },
       };
     },
     addTodoRequest: (state, action: PayloadAction<ITodo>) => {
@@ -37,13 +52,23 @@ const todoSlice = createSlice({
         ...state,
         loading: true,
         error: null,
+        alert: {
+          ...state.alert,
+          isOpen: false,
+        },
       };
     },
     addTodoSuccess: (state, action: PayloadAction<ITodo>) => {
       return {
+        ...state,
         data: [...state.data, action.payload],
         loading: false,
         error: null,
+        alert: {
+          isOpen: true,
+          message: "Todo added successfully",
+          severity: "success",
+        },
       };
     },
     addTodoFail: (state) => {
@@ -51,20 +76,35 @@ const todoSlice = createSlice({
         ...state,
         loading: false,
         error: "Todo not added",
+        alert: {
+          isOpen: true,
+          message: "Todo not added",
+          severity: "error",
+        },
       };
     },
-    removeTodoRequest: (state, action: PayloadAction<ITodo>) => {
+    removeTodoRequest: (state, action: PayloadAction<any>) => {
       return {
         ...state,
         loading: true,
         error: null,
+        alert: {
+          ...state.alert,
+          isOpen: false,
+        },
       };
     },
-    removeTodoSuccess: (state, action: PayloadAction<ITodo>) => {
+    removeTodoSuccess: (state, action: PayloadAction<any>) => {
       return {
-        data: state.data.filter((e) => e._id !== action.payload._id),
+        ...state,
+        data: state.data.filter((todo) => todo._id !== action.payload._id),
         loading: false,
         error: null,
+        alert: {
+          isOpen: true,
+          message: "Todo removed successfully",
+          severity: "warning",
+        },
       };
     },
     removeTodoFail: (state) => {
@@ -72,6 +112,11 @@ const todoSlice = createSlice({
         ...state,
         loading: false,
         error: "Todo not removed",
+        alert: {
+          isOpen: true,
+          message: "Todo not removed",
+          severity: "error",
+        },
       };
     },
     updateTodoRequest: (state, action: PayloadAction<ITodo>) => {
@@ -79,22 +124,26 @@ const todoSlice = createSlice({
         ...state,
         loading: true,
         error: null,
+        alert: {
+          ...state.alert,
+          isOpen: false,
+        },
       };
     },
     updateTodoSuccess: (state, action: PayloadAction<ITodo>) => {
       return {
-        data: state.data.map((e) => {
-          if (e._id === action.payload._id) {
-            return {
-              ...e,
-              title: action.payload.title,
-              completed: action.payload.completed,
-            };
-          }
-          return e;
-        }),
+        ...state,
+        data: [
+          action.payload,
+          ...state.data.filter((todo) => todo._id !== action.payload._id),
+        ],
         loading: false,
         error: null,
+        alert: {
+          isOpen: true,
+          message: "Todo updated successfully",
+          severity: "success",
+        },
       };
     },
     updateTodoFail: (state) => {
@@ -102,6 +151,11 @@ const todoSlice = createSlice({
         ...state,
         loading: false,
         error: "Todo not updated",
+        alert: {
+          isOpen: true,
+          message: "Todo not updated",
+          severity: "error",
+        },
       };
     },
   },

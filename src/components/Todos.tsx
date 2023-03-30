@@ -1,31 +1,32 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Loader from "components/Loader";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import "components/todos.css";
 import TodoListContainer from "containers/TodoListContainer";
+import Loader from "components/Loader";
+import "components/todos.css";
 import { IAddTodoState } from "state/ducks/todos/types/utils";
-import { PropsFromTodos } from "state/ducks/todos/types/redux";
-const Todos: React.FC<PropsFromTodos> = ({
+import { IPropsFromTodos } from "state/ducks/todos/types/redux";
+import { TodoTitleschema } from "state/utils/data";
+import AlertComponent from "./AlertComponent";
+
+const Todos: React.FC<IPropsFromTodos> = ({
   loading,
   error,
+  alert,
   getTodosRequest,
   addTodoRequest,
 }) => {
   useEffect(() => {
     getTodosRequest();
   }, []);
-  const schema = yup.object({
-    title: yup.string().required("Title is required"),
-  });
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<IAddTodoState>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(TodoTitleschema),
   });
 
   const onSubmit = (data: IAddTodoState) => {
@@ -47,6 +48,7 @@ const Todos: React.FC<PropsFromTodos> = ({
       {errors.title && <p>{errors.title.message}</p>}
       {error && <div>{error}</div>}
       {loading ? <Loader /> : <TodoListContainer />}
+      <AlertComponent {...alert} />
     </div>
   );
 };

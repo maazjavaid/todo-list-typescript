@@ -25,7 +25,7 @@ function* getTodoTasksSaga(action: AnyAction): Generator {
       "GET"
     )) as ITodo[];
     yield put(getTodosSuccess(data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(getTodosFail());
   }
 }
@@ -56,7 +56,7 @@ function* UpdateTodoSaga(action: AnyAction): Generator {
 
 function* RemoveTodoSaga(action: AnyAction): Generator {
   try {
-    yield call(apiCallRequest, "/todos/" + action.payload._id, "DELETE");
+    yield call(apiCallRequest, "/todos/" + action.payload, "DELETE");
     yield put(removeTodoSuccess(action.payload));
   } catch (error) {
     yield put(removeTodoFail());

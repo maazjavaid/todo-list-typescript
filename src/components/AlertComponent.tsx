@@ -12,8 +12,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 const AlertComponent: React.FC<IAlert> = ({ isOpen, severity, message }) => {
-  console.log(isOpen, severity, message);
-
   const [open, setOpen] = useState(false);
   useEffect(() => {
     setOpen(isOpen);

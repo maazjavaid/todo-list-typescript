@@ -97,7 +97,7 @@ const todoSlice = createSlice({
     removeTodoSuccess: (state, action: PayloadAction<any>) => {
       return {
         ...state,
-        data: state.data.filter((todo) => todo._id !== action.payload._id),
+        data: state.data.filter((todo) => todo._id !== action.payload),
         loading: false,
         error: null,
         alert: {

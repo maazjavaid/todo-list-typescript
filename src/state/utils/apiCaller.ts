@@ -16,7 +16,7 @@ export const apiCallRequest = async (
   try {
     const data: any = await response.json();
     return data;
-  } catch {
+  } catch (error) {
     return response;
   }
 };

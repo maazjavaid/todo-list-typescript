@@ -75,8 +75,8 @@
 .button-container {
   display: flex;
 }
-.button-container{
-    display: flex;
+.button-container {
+  display: flex;
 }
 .task-task .button-container :nth-child(1) {
   height: 30px;
@@ -91,6 +91,21 @@
 }
 
 .task-task .button-container :nth-child(2) {
+  height: 30px;
+  width: 70px;
+  margin-left: 15px;
+  border: none;
+  background-color: #bc4a4a;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+}
+
+.logout-button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
   height: 30px;
   width: 70px;
   margin-left: 15px;

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import Todos from "components/Todos";
+import Todos from "components/TodoComponents/Todos";
 import { addTodoRequest, getTodosRequest } from "state/ducks/todos/todoSlice";
 import { RootState } from "state";
 import {

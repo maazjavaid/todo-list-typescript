@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import TodoListContainer from "containers/TodoListContainer";
-import Loader from "components/Loader";
-import "components/todos.css";
+import TodoListContainer from "containers/TodoContainers/TodoListContainer";
+import Loader from "components/Common/Loader";
+import "components/TodoComponents/todos.css";
 import { IAddTodoState } from "state/ducks/todos/types/utils";
 import { IPropsFromTodos } from "state/ducks/todos/types/redux";
 import { TodoTitleschema } from "state/utils/data";
-import AlertComponent from "./AlertComponent";
+import AlertComponent from "../Common/AlertComponent";
+import { useNavigate } from "react-router-dom";
 
 const Todos: React.FC<IPropsFromTodos> = ({
   loading,
@@ -19,6 +20,8 @@ const Todos: React.FC<IPropsFromTodos> = ({
   useEffect(() => {
     getTodosRequest();
   }, []);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -37,10 +40,18 @@ const Todos: React.FC<IPropsFromTodos> = ({
     });
     reset();
   };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <div className="task-container">
       <h1>Task Todo List</h1>
-
+      <button onClick={() => handleLogout()} className="logout-button">
+        Logout
+      </button>
       <form className="task-input" onSubmit={handleSubmit(onSubmit)}>
         <input type="text" {...register("title")} />
         <button type="submit">Add</button>

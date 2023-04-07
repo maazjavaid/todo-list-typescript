@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Dispatch, bindActionCreators } from "redux";
-import TodoList from "components/TodoList";
+import TodoList from "components/TodoComponents/TodoList";
 import {
   removeTodoRequest,
   updateTodoRequest,

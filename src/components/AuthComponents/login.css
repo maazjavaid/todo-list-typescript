@@ -1,0 +1,24 @@
+.login-paper {
+  padding: 20px;
+  height: 55vh;
+  width: 300px;
+  margin: 0 auto;
+}
+.login-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.login-textfield {
+  margin-bottom: 30px !important;
+}
+
+.login-avatar-logo {
+  background-color: #1bbd7e !important;
+  margin-top: 30px;
+}
+
+.login-button {
+  margin: 30px 0 30px 0 !important;
+}

@@ -25,15 +25,6 @@ const Login: React.FC<IPropsFromLogin> = ({
   isAuth,
   loginRequest,
 }) => {
-  const paperStyle = {
-    padding: 20,
-    height: "55vh",
-    width: 300,
-    margin: "0 auto",
-  };
-  const avatarStyle = { backgroundColor: "#1bbd7e", marginTop: "30px" };
-  const btnstyle = { margin: "30px 0 30px 0" };
-
   const { register, handleSubmit, reset } = useForm<IUser>({
     resolver: yupResolver(UserLoginSchema),
   });
@@ -56,32 +47,25 @@ const Login: React.FC<IPropsFromLogin> = ({
   }
 
   return (
-    <div style={{ margin: "0 auto" }}>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid>
-          <Paper style={paperStyle}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                marginBottom: "30px",
-              }}
-            >
-              <Avatar style={avatarStyle}>
+          <Paper className="login-paper">
+            <div className="login-avatar">
+              <Avatar className="login-avatar-logo">
                 <LockOutlined />
               </Avatar>
               <h2>Sign In</h2>
             </div>
             <TextField
-              style={{ marginBottom: "30px" }}
+              className="login-textfield"
               label="Email"
               {...register("email")}
               placeholder="Enter username"
               fullWidth
             />
             <TextField
-              style={{ marginBottom: "30px" }}
+              className="login-textfield"
               label="Password"
               {...register("password")}
               placeholder="Enter password"
@@ -94,7 +78,7 @@ const Login: React.FC<IPropsFromLogin> = ({
               type="submit"
               color="primary"
               variant="contained"
-              style={btnstyle}
+              className="login-button"
               fullWidth
             >
               Sign in

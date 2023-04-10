@@ -13,6 +13,7 @@ import {
 import AddCircleOutlineRounded from "@mui/icons-material/AddCircleOutlineRounded";
 import Loader from "components/Common/Loader";
 import AlertComponent from "components/Common/AlertComponent";
+import "./register.css";
 import { IPropsFromRegister } from "state/ducks/users/types/redux";
 import { UserRegisterSchema } from "state/utils/data";
 import { IUser } from "state/ducks/users/types/utils";
@@ -23,15 +24,6 @@ const Register: React.FC<IPropsFromRegister> = ({
   alert,
   registerRequest,
 }) => {
-  const paperStyle = {
-    padding: 20,
-    width: 300,
-    margin: "0 auto",
-    height: "55vh",
-  };
-  const headerStyle = { margin: 0 };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-
   const { register, handleSubmit, reset } = useForm<IUser>({
     resolver: yupResolver(UserRegisterSchema),
   });
@@ -52,22 +44,14 @@ const Register: React.FC<IPropsFromRegister> = ({
   }
 
   return (
-    <div style={{ margin: "0 auto" }}>
+    <div>
       <Grid>
-        <Paper className="register-paper" style={paperStyle}>
-          <div
-            className="register-header"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginBottom: "30px",
-            }}
-          >
-            <Avatar style={avatarStyle}>
+        <Paper className="register-paper">
+          <div className="register-avatar">
+            <Avatar className="register-avatar-logo">
               <AddCircleOutlineRounded />
             </Avatar>
-            <h2 style={headerStyle}>Sign Up</h2>
+            <h2>Sign Up</h2>
             <Typography variant="caption" gutterBottom>
               Please fill this form to create an account !
             </Typography>
@@ -75,18 +59,13 @@ const Register: React.FC<IPropsFromRegister> = ({
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               className="register-textfield"
-              style={{
-                marginBottom: "30px",
-              }}
               fullWidth
               label="Name"
               placeholder="Enter your name"
               {...register("name")}
             />
             <TextField
-              style={{
-                marginBottom: "30px",
-              }}
+              className="register-textfield"
               fullWidth
               type="email"
               label="Email"
@@ -95,9 +74,7 @@ const Register: React.FC<IPropsFromRegister> = ({
             />
 
             <TextField
-              style={{
-                marginBottom: "30px",
-              }}
+              className="register-textfield"
               type="password"
               fullWidth
               label="Password"
@@ -105,10 +82,16 @@ const Register: React.FC<IPropsFromRegister> = ({
               {...register("password")}
             />
 
-            <Button type="submit" variant="contained" color="primary" fullWidth>
+            <Button
+              className="register-button"
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
               Sign up
             </Button>
-            <Typography style={{ marginTop: "30px" }}>
+            <Typography>
               {" "}
               Already have an account ?<Link href="/">Login</Link>
             </Typography>

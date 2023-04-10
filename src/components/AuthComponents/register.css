@@ -1,0 +1,24 @@
+.register-paper {
+  padding: 20px;
+  height: 55vh;
+  width: 300px;
+  margin: 0 auto;
+}
+.register-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.register-textfield {
+  margin-bottom: 30px !important;
+}
+
+.register-avatar-logo {
+  background-color: #1bbd7e !important;
+  margin-top: 30px;
+}
+
+.register-button {
+  margin-bottom: 30px !important;
+}

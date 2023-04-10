@@ -8,12 +8,14 @@ export interface IUserState {
   loading: boolean;
   error: null | string;
   alert: IAlert;
+  isAuth: boolean;
 }
 
 export interface ILoginStateProps {
   loading: RootState["user"]["loading"];
   error: RootState["user"]["error"];
   alert: RootState["user"]["alert"];
+  isAuth: RootState["user"]["isAuth"];
 }
 
 export interface ILoginDispatchProps {

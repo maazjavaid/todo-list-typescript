@@ -6,6 +6,7 @@ const initialState: IUserState = {
   data: null,
   loading: false,
   error: null,
+  isAuth: localStorage.getItem("token") ? true : false,
   alert: {
     isOpen: false,
     message: null,
@@ -30,6 +31,7 @@ const userSlice = createSlice({
         data: action.payload,
         loading: false,
         error: null,
+        isAuth: true,
         alert: {
           ...state.alert,
           isOpen: false,

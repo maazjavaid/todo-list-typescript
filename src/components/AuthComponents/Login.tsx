@@ -22,6 +22,7 @@ const Login: React.FC<IPropsFromLogin> = ({
   loading,
   error,
   alert,
+  isAuth,
   loginRequest,
 }) => {
   const paperStyle = {
@@ -36,7 +37,6 @@ const Login: React.FC<IPropsFromLogin> = ({
   const { register, handleSubmit, reset } = useForm<IUser>({
     resolver: yupResolver(UserLoginSchema),
   });
-
   const onSubmit = (data: IUser) => {
     loginRequest({
       _id: null,
@@ -50,6 +50,9 @@ const Login: React.FC<IPropsFromLogin> = ({
   };
   if (loading) {
     return <Loader />;
+  }
+  if (localStorage.getItem("token")) {
+    window.location.href = "/todos";
   }
 
   return (

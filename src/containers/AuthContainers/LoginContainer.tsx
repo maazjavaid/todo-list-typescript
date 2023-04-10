@@ -13,6 +13,7 @@ const mapStateToProps = (state: RootState): ILoginStateProps => {
     loading: state.user.loading,
     error: state.user.error,
     alert: state.user.alert,
+    isAuth: state.user.isAuth,
   };
 };
 

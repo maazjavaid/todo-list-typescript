@@ -22,6 +22,7 @@ function* loginUserSaga(action: AnyAction): Generator {
     if (!data.token) throw new Error(data.message ?? "Login Failed");
     localStorage.setItem("token", data.token ?? "");
     yield put(loginSuccess(data));
+    window.location.href = "/todos";
   } catch (error) {
     yield put(loginFail());
   }

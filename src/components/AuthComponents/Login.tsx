@@ -11,12 +11,12 @@ import {
   Link,
 } from "@mui/material";
 import LockOutlined from "@mui/icons-material/LockOutlined";
-import { IPropsFromLogin } from "state/ducks/users/types/redux";
+import AlertComponent from "components/Common/AlertComponent";
 import Loader from "components/Common/Loader";
+import "./login.css";
+import { IPropsFromLogin } from "state/ducks/users/types/redux";
 import { IUser } from "state/ducks/users/types/utils";
 import { UserLoginSchema } from "state/utils/data";
-import AlertComponent from "components/Common/AlertComponent";
-import { useNavigate } from "react-router-dom";
 
 const Login: React.FC<IPropsFromLogin> = ({
   loading,
@@ -33,13 +33,11 @@ const Login: React.FC<IPropsFromLogin> = ({
   const avatarStyle = { backgroundColor: "#1bbd7e", marginTop: "30px" };
   const btnstyle = { margin: "30px 0 30px 0" };
 
-  const navigate = useNavigate();
-
   const { register, handleSubmit, reset } = useForm<IUser>({
     resolver: yupResolver(UserLoginSchema),
   });
 
-  const onSubmit = async (data: IUser) => {
+  const onSubmit = (data: IUser) => {
     loginRequest({
       _id: null,
       name: null,
@@ -47,13 +45,9 @@ const Login: React.FC<IPropsFromLogin> = ({
       password: data.password,
       token: null,
     });
-    setTimeout(() => {
-      if (localStorage.getItem("token")) navigate("/todos");
-    }, 1500);
 
     reset();
   };
-
   if (loading) {
     return <Loader />;
   }

@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import AddCircleOutlineRounded from "@mui/icons-material/AddCircleOutlineRounded";
 import Loader from "components/Common/Loader";
-import { IPropsFromRegister } from "state/ducks/users/types/redux";
 import AlertComponent from "components/Common/AlertComponent";
+import { IPropsFromRegister } from "state/ducks/users/types/redux";
 import { UserRegisterSchema } from "state/utils/data";
 import { IUser } from "state/ducks/users/types/utils";
 
@@ -54,8 +54,9 @@ const Register: React.FC<IPropsFromRegister> = ({
   return (
     <div style={{ margin: "0 auto" }}>
       <Grid>
-        <Paper style={paperStyle}>
+        <Paper className="register-paper" style={paperStyle}>
           <div
+            className="register-header"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -73,6 +74,7 @@ const Register: React.FC<IPropsFromRegister> = ({
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
+              className="register-textfield"
               style={{
                 marginBottom: "30px",
               }}
